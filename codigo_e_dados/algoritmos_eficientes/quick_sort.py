@@ -1,6 +1,5 @@
 import time
 from gera_array import GeraArray
-string = "---------------------------------------//--------------------------------------------------"
 
 class QuickSort:
     def __init__(self):
@@ -50,7 +49,7 @@ class QuickSort:
 if __name__ == "__main__":
     arr = GeraArray()
     quicksort = QuickSort()
-    A = arr.array_aleatorio(10)
+    A = arr.array_aleatorio(1000000)
     print(A)
     quicksort.sort(A)
     print(A)

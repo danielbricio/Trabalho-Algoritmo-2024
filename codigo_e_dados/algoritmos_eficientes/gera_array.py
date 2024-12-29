@@ -22,11 +22,5 @@ class GeraArray:
         return A
 
     def array_aleatorio(self, n):
-        A = []
-
-        while len(A) < n:
-            x = random.randint(0,100)
-            if x not in A:
-                A.append(x)
-
+        A = random.sample(range(n), n)
         return A
