@@ -1,6 +1,3 @@
-from gera_array import GeraArray
-import time
-
 class MergeSort:
     def __init__(self):
         self.comparacoes = 0
@@ -8,10 +5,7 @@ class MergeSort:
         self.tempo_execucao = 0
 
     def sort(self, A):
-        start_time = time.time()  # Início da medição de tempo
         self._merge_sort(A, 0, len(A) - 1)
-        end_time = time.time()  # Fim da medição de tempo
-        self.tempo_execucao = end_time - start_time
 
     def combina(self, A, inicio, meio, fim):
         n_um = meio - inicio + 1
@@ -23,12 +17,14 @@ class MergeSort:
         self.atribuicoes += 2
 
         for i in range(n_um):
+            self.atribuicoes += 1 #atribuição a var i
             B[i] = A[inicio + i]
             self.atribuicoes += 1
 
         for j in range(n_dois):
+            self.atribuicoes += 1 #atribuição a var i
             C[j] = A[meio + j + 1]
-            self.atribuicoes += 1
+            self.atribuicoes += 1 
 
         i = 0
         j = 0
@@ -72,17 +68,8 @@ class MergeSort:
             self._merge_sort(A, meio + 1, fim)
             self.combina(A, inicio, meio, fim)
 
-
     def resultados(self):
-        return f'''
-            comparacoes: {self.comparacoes}\n
-            atribuicoes: {self.atribuicoes}\n
-            tempo_execucao: {self.tempo_execucao}\n'''
-
-arr = GeraArray()
-merge_sort = MergeSort()
-A = arr.array_ordenado_descr(1000000)
-print(A[:5], "...",A[-5:])
-merge_sort.sort(A)
-print(A[:5], "...",A[-5:])
-print(merge_sort.resultados())
+        return {
+            'comparacoes': self.comparacoes,
+            'atribuicoes': self.atribuicoes,
+            'tempo_execucao': self.comparacoes + self.atribuicoes}

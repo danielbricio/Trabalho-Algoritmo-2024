@@ -1,5 +1,4 @@
-import time
-from gera_array import GeraArray
+import random
 
 class QuickSort:
     def __init__(self):
@@ -8,20 +7,22 @@ class QuickSort:
         self.tempo_execucao = 0
 
     def sort(self, A):
-        start_time = time.time()  # Início da medição de tempo
         self._quick_sort(A, 0, len(A) - 1)
-        end_time = time.time()  # Fim da medição de tempo
-        self.tempo_execucao = end_time - start_time
 
     def _quick_sort(self, A, inicio, fim):
         if inicio < fim: #Verifica se o metodo ja fez todas a iterações necessárias
             self.comparacoes += 1
+            p = random.randint(inicio, fim)
+            self.atribuicoes += 1
+            A[p], A[fim] = A[fim], A[p]
+            self.atribuicoes += 3 #atribuição por tupla
             x = self.particiona(A, inicio, fim) #chama o metodo particiona e iguala o return a x
+            self.atribuicoes += 1
             self._quick_sort(A, inicio, x-1) #chamada recursiva do metodo quicksort com o subvertor formado a esquerda do original
             self._quick_sort(A, x+1, fim) #chamada recursiva do metodo quicksort com o subvertor formado a direita do original
 
     def particiona(self, A, inicio, fim):
-        pivo = A[fim] #define o pivô como o ultimo elemento do array
+        pivo = A[random.randint(inicio, fim)] #define o pivô como o ultimo elemento do array
         self.atribuicoes += 1
         i = inicio #define o indice i
         self.atribuicoes += 1
@@ -34,6 +35,7 @@ class QuickSort:
                 self.atribuicoes += 3 # Troca de posições (3 atribuições com uso de tupla)
                 i += 1 #incrementa o i
                 self.atribuicoes += 1
+                
         
         A[i], A[fim] = A[fim], A[i] #troca o elemento do indice i com o ultimo elemento do sub array.
         self.atribuicoes += 3 # Troca de posições (3 atribuições com uso de tupla)
@@ -41,16 +43,7 @@ class QuickSort:
         return i
     
     def resultados(self):
-        return f'''
-            comparacoes: {self.comparacoes}\n
-            atribuicoes: {self.atribuicoes}\n
-            tempo_execucao: {self.tempo_execucao}\n'''
-
-if __name__ == "__main__":
-    arr = GeraArray()
-    quicksort = QuickSort()
-    A = arr.array_aleatorio(1000000)
-    print(A)
-    quicksort.sort(A)
-    print(A)
-    print(quicksort.resultados())
+        return {
+            'comparacoes': self.comparacoes,
+            'atribuicoes': self.atribuicoes,
+            'tempo_execucao': self.comparacoes + self.atribuicoes}
