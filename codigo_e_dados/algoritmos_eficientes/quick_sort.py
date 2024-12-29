@@ -31,12 +31,12 @@ class QuickSort:
             if A[j] <= pivo: #se o elemento da iteração for menor que o pivô
                 self.comparacoes += 1
                 A[i], A[j] = A[j], A[i] #então ele troca de lugar com o elemento do indice i
-                self.atribuicoes += 2
+                self.atribuicoes += 3 # Troca de posições (3 atribuições com uso de tupla)
                 i += 1 #incrementa o i
                 self.atribuicoes += 1
         
         A[i], A[fim] = A[fim], A[i] #troca o elemento do indice i com o ultimo elemento do sub array.
-        self.atribuicoes += 2
+        self.atribuicoes += 3 # Troca de posições (3 atribuições com uso de tupla)
 
         return i
     

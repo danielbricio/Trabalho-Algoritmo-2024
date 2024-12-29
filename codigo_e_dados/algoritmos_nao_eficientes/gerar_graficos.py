@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+import matplotlib.pyplot as plt # type: ignore
+import pandas as pd # type: ignore
 
 # Dados de exemplo (adicione valores reais após os testes)
 tamanhos = [10, 100, 1000, 10000, 100000, 1000000]
