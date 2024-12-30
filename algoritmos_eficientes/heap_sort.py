@@ -1,5 +1,3 @@
-from gera_array import GeraArray
-
 class HeapSort:
     def __init__(self):
         self.comparacoes = 0

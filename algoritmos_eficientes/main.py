@@ -5,9 +5,21 @@ from merge_sort import MergeSort
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def grafico_array(A, tamanho_array, tipo_array, estado):
+    plt.figure(figsize=(10, 6))
+    plt.plot(A, label=f"{estado} da Ordenação", color="blue")
+    plt.title(f"Array {estado} da Ordenação - {tipo_array} ({tamanho_array})")
+    plt.xlabel("Índice")
+    plt.ylabel("Valor")
+    plt.grid()
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(f"/home/rubens/Trabalho-Algoritmo-2024/algoritmos_eficientes/resultados/graficos/{tamanho_array}/array_{estado}_{tipo_array}.jpg")
+    plt.close()
+
 if __name__ == "__main__":
     algoritmos = [QuickSort(), HeapSort(), MergeSort()]
-    tamanhos_array = [10, 100, 1000, 10000, 100000, 1000000]
+    tamanhos_array = [10,100,1000,10000,100000,1000000]
     tipos_array = ["ordenado_cresc", "ordenado_descr", "quase_ordenado", "aleatorio"]
     array = GeraArray()
 
@@ -15,13 +27,17 @@ if __name__ == "__main__":
     todos_resultados = []
 
     for tamanho_array in tamanhos_array:
+
         for tipo_array in tipos_array:
             resultados = []
+            metodo_array = getattr(array, tipo_array)
+            A = metodo_array(tamanho_array)
+            #grafico_array(A, tamanho_array, tipo_array, 'antes')
+            
             for algoritmo in algoritmos:
-                metodo_array = getattr(array, tipo_array)
-                A = metodo_array(tamanho_array)
-
+                
                 algoritmo.sort(A)
+                #grafico_array(A, tamanho_array, tipo_array, 'depois')
                 resultado = algoritmo.resultados()
                 resultado.update({
                     "algoritmo": type(algoritmo).__name__,
@@ -37,6 +53,7 @@ if __name__ == "__main__":
             df = pd.DataFrame(resultados)
 
             # Gera o gráfico para a combinação atual
+            '''
             plt.figure(figsize=(10, 6))
             bar_width = 0.25
             x = range(len(df['algoritmo']))
@@ -56,9 +73,9 @@ if __name__ == "__main__":
             plt.legend()
             plt.grid(axis="y")
             plt.tight_layout()
-            plt.savefig(f"/home/rubens/Trabalho-Algoritmo-2024/codigo_e_dados/algoritmos_eficientes/resultados/graficos/grafico_{tamanho_array}_{tipo_array}.png")
-            plt.close()
+            plt.savefig(f"/home/rubens/Trabalho-Algoritmo-2024/algoritmos_eficientes/resultados/graficos/{tamanho_array}/grafico_{tipo_array}.jpg")
+            plt.close()'''
 
     # Salva o DataFrame consolidado como CSV
     df_consolidado = pd.DataFrame(todos_resultados)
-    df_consolidado.to_csv("/home/rubens/Trabalho-Algoritmo-2024/codigo_e_dados/algoritmos_eficientes/resultados/todos_resultados.csv", index=False)
+    df_consolidado.to_csv("/home/rubens/Trabalho-Algoritmo-2024/algoritmos_eficientes/resultados/dataframes/todos_resultados.csv", index=False)
