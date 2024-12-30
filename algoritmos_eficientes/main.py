@@ -32,12 +32,12 @@ if __name__ == "__main__":
             resultados = []
             metodo_array = getattr(array, tipo_array)
             A = metodo_array(tamanho_array)
-            #grafico_array(A, tamanho_array, tipo_array, 'antes')
+            grafico_array(A, tamanho_array, tipo_array, 'antes')
             
             for algoritmo in algoritmos:
                 
                 algoritmo.sort(A)
-                #grafico_array(A, tamanho_array, tipo_array, 'depois')
+                grafico_array(A, tamanho_array, tipo_array, 'depois')
                 resultado = algoritmo.resultados()
                 resultado.update({
                     "algoritmo": type(algoritmo).__name__,
@@ -53,7 +53,7 @@ if __name__ == "__main__":
             df = pd.DataFrame(resultados)
 
             # Gera o gráfico para a combinação atual
-            '''
+            
             plt.figure(figsize=(10, 6))
             bar_width = 0.25
             x = range(len(df['algoritmo']))
@@ -74,7 +74,7 @@ if __name__ == "__main__":
             plt.grid(axis="y")
             plt.tight_layout()
             plt.savefig(f"/home/rubens/Trabalho-Algoritmo-2024/algoritmos_eficientes/resultados/graficos/{tamanho_array}/grafico_{tipo_array}.jpg")
-            plt.close()'''
+            plt.close()
 
     # Salva o DataFrame consolidado como CSV
     df_consolidado = pd.DataFrame(todos_resultados)
