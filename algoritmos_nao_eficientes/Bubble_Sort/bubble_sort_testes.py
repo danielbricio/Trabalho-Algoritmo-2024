@@ -1,5 +1,6 @@
 from bubble_sort import bubble_sort
 from algoritmos_nao_eficientes.Bubble_Sort.gerar_listas_bubble import gerar_listas
+from algoritmos_eficientes.main import grafico_array
 import pandas as pd
 import os
 import time
